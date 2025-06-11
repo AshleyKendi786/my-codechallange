@@ -1,0 +1,113 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Code Challenge 1</title>
+  
+</head>
+<body>
+
+  <h1>Code Challenge 1 </h1>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-target="chai"> Chai Bora</button>
+    <button class="tab-btn" data-target="boda"> Boda Fare</button>
+    <button class="tab-btn" data-target="mobile"> Mobile Money</button>
+  </div>
+
+  <div id="chai" class="challenge active">
+    <h2>Chai Bora Ingredient Calculator</h2>
+    <button onclick="runChai()">Calculate Ingredients</button>
+    <pre id="chaiOutput"></pre>
+  </div>
+
+  <div id="boda" class="challenge">
+    <h2>Boda Boda Ride Fare Estimator</h2>
+    <button onclick="runBoda()">Calculate Fare</button>
+    <pre id="bodaOutput"></pre>
+  </div>
+
+  <div id="mobile" class="challenge">
+    <h2>Mobile Money Transaction Fee Estimator</h2>
+    <button onclick="runMobile()">Estimate Fee</button>
+    <pre id="mobileOutput"></pre>
+  </div>
+
+  <script>
+    // Tab logic
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('.challenge');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        sections.forEach(sec => sec.classList.remove('active'));
+
+        button.classList.add('active');
+        document.getElementById(button.dataset.target).classList.add('active');
+      });
+    });
+
+    // Chai Bora Function
+    function runChai() {
+      const cups = Number(prompt("Karibu! How many cups of Chai Bora would you like to make?"));
+      if (isNaN(cups) || cups <= 0) {
+        alert("Please enter a valid number.");
+        return;
+      }
+      const water = 200 * cups;
+      const milk = 50 * cups;
+      const tea = 1 * cups;
+      const sugar = 2 * cups;
+      const result = `To make ${cups} cups of Kenyan Chai, you will need:
+Water: ${water} ml
+Milk: ${milk} ml
+Tea Leaves (Majani): ${tea} tablespoons
+Sugar (Sukari): ${sugar} teaspoons
+
+Enjoy your Chai Bora!`;
+      document.getElementById("chaiOutput").textContent = result;
+    }
+
+    // Boda Fare Function
+    function runBoda() {
+      const km = Number(prompt("Unafika wapi Mkubwa? Kilometer ngapi?:"));
+      if (isNaN(km) || km <= 0) {
+        alert("Please enter a valid number of kilometers.");
+        return;
+      }
+      const baseFare = 50;
+      const perKm = 15;
+      const tripFare = perKm * km;
+      const total = baseFare + tripFare;
+      const result = `Uko kwote? Io ni ${km} km:
+Ukikalia Pikipiki: KES ${baseFare}
+Mpaka Uko: KES ${tripFare}
+Total: KES ${total}
+
+Panda Pikipiki!`;
+      document.getElementById("bodaOutput").textContent = result;
+    }
+
+    // Mobile Money Function
+    function runMobile() {
+      const amount = Number(prompt("Unatuma Ngapi? (KES):"));
+      if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid amount.");
+        return;
+      }
+      const percentage = 0.015 * amount;
+      const fee = Math.min(Math.max(percentage, 10), 70);
+      const total = amount + fee;
+      const result = `Sending KES ${amount}:
+Calculated Transaction Fee: KES ${fee.toFixed(2)}
+Total amount to be debited: KES ${total.toFixed(2)}
+
+Send Money Securely!`;
+      document.getElementById("mobileOutput").textContent = result;
+    }
+  </script>
+
+</body>
+</html>
